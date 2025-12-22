@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
 import Spinners from './common/components/Spinners';
+import './App.css'
 
 const AppLayout = React.lazy(()=> import('./layout/AppLayout'));
 const HomePage = React.lazy(()=> import('./pages/HomePage/HomePage'));
@@ -21,7 +22,7 @@ const App = () => {
   return (
     <Suspense fallback={<div>{<Spinners/>}</div>}>
 
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
         <Routes>
           <Route path="/" element={<AppLayout/>}>
             <Route index element={<HomePage/>}/>
@@ -32,7 +33,7 @@ const App = () => {
 
           </Route>
         </Routes>
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
     </Suspense>
   );
 };
