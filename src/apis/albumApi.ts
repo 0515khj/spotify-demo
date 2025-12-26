@@ -1,7 +1,8 @@
 import axios from "axios"
 import { SPOTIFY_BASE_URL } from "../configs/commonConfig";
+import type { GetNEwReleasesResponse } from "../models/album";
 
-export const getNewReleases = async(clientCredentialToken:string)=> {
+export const getNewReleases = async(clientCredentialToken:string):Promise<GetNEwReleasesResponse>=> {
     try {
         const response = await axios.get(`${SPOTIFY_BASE_URL}/browse/new-releases`,{
             headers:{
