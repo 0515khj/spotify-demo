@@ -1,5 +1,4 @@
 import { Card as MuiCard, CardContent, CardMedia, Typography } from '@mui/material';
-import React from 'react';
 
 interface CardProps {
     name:string;
