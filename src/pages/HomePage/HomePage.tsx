@@ -1,7 +1,11 @@
+import NewReleases from "./components/NewReleases";
+
+
+
 const HomePage = () => {
     return (
         <div>
-            home
+            <NewReleases/>
         </div>
     );
 };

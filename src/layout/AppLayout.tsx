@@ -4,10 +4,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import LibraryHead from './components/LibraryHead';
 import Library from './components/Library';
+import Navbar from './components/Navbar';
 
 const Layout = styled('div')({
     display:'flex',
-    height:'100vh',
+    height: '100vh',
     padding:'8px'
 })
 
@@ -77,7 +78,10 @@ const AppLayout = () => {
                     <Library/>
                 </ContentBox>
             </Sidebar>
-            <Outlet/>
+            <ContentBox sx={{ flex: 1, overflowY: 'auto', ml: 1 }}>
+                <Navbar />
+                <Outlet/>
+            </ContentBox>
         </Layout>
     );
 };
