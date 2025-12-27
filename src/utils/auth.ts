@@ -30,6 +30,6 @@ export const getSpotifyAuthUrl = async() => {
       redirect_uri: redirectUri,
     }
 
-    authUrl.search = new URLSearchParams(params).toString();
+    authUrl.search = new URLSearchParams(Object.entries(params)).toString();
     window.location.href = authUrl.toString();
 }
