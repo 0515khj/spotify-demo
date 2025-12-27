@@ -22,7 +22,7 @@ const NewReleases = () => {
             {data && data.albums.items.length > 0 ?(
                 <Grid container  rowSpacing={4} columnSpacing={1}>
                     {data.albums.items.map((album)=>(
-                        <Grid size={{xs:6, sm:4, md:2}} key={album.id}>
+                        <Grid size={{xs:6, sm:6, md:3, lg:2}} key={album.id}>
                             <Card 
                             image={album.images[0].url} 
                             name={album.name} 

@@ -10,7 +10,7 @@ const Card = ({image,name,artistName}:CardProps) => {
     return (
          <MuiCard
       sx={{
-        width: 210,
+         width: { xs: '100%', sm: 200, md: 210 },
         padding:1.5,
         bgcolor: "transparent",
         boxShadow: "none",
@@ -30,7 +30,8 @@ const Card = ({image,name,artistName}:CardProps) => {
         sx={{
           borderRadius: 2,
           aspectRatio: "1 / 1",
-          objectFit: "cover"
+          objectFit: "cover",
+          width: '100%',  
         }}
       />
 
@@ -39,7 +40,7 @@ const Card = ({image,name,artistName}:CardProps) => {
           variant="subtitle1"
           fontWeight={600}
           noWrap
-          sx={{ fontSize: 14 }}
+           sx={{ fontSize: { xs: 12, sm: 14 } }} 
         >
           {name}
         </Typography>
@@ -47,7 +48,7 @@ const Card = ({image,name,artistName}:CardProps) => {
           variant="subtitle2"
           noWrap
           color="text.secondary"
-          sx={{ fontSize: 13 }}
+           sx={{ fontSize: { xs: 11, sm: 13 } }}
         >
           {artistName}
         </Typography>
