@@ -31,7 +31,7 @@ const App = () => {
     if(code && codeVerifier){
       exchangeToken({code,codeVerifier});
     }
-  },[code,codeVerifier,exchangeToken])
+  },[code,codeVerifier,exchangeToken]);
 
   return (
     <Suspense fallback={<div>{<Spinners/>}</div>}>

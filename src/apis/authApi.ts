@@ -1,13 +1,19 @@
 import axios from "axios"
 import type { ClientCredentialTokenResponse, ExchangeTokenResponse } from "../models/auth";
 import { CLIENT_ID, CLIENT_SECRET } from "../configs/authConfig";
-import { REDIRECT_URI } from "../configs/commonConfig";
+import { REDIRECT_URI, REDIRECT_URI_PROD } from "../configs/commonConfig";
 // const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID as string;
 // const clientSecret = import.meta.env.VITE_SPOTIFY_SECRET_ID as string;
 
 const encodedBase64 = (data:string):string =>{
     return btoa(data)
 }
+
+const getRedirectUri = () => {
+  const host = window.location.hostname;
+  const isLocal = host === "localhost" || host === "127.0.0.1";
+  return isLocal ? REDIRECT_URI : REDIRECT_URI_PROD;
+};
 
 export const getClientCredientialToken = async():Promise<ClientCredentialTokenResponse> =>{
     try {
@@ -30,6 +36,7 @@ export const getClientCredientialToken = async():Promise<ClientCredentialTokenRe
 export const exchangeToken = async(code:string,codeVerifier:string):Promise<ExchangeTokenResponse> =>{
     try {
         const url = "https://accounts.spotify.com/api/token";
+        const redirectUri = getRedirectUri();
         if(!CLIENT_ID && !REDIRECT_URI){
             throw new Error('Missing required parameters');
         }
@@ -37,7 +44,7 @@ export const exchangeToken = async(code:string,codeVerifier:string):Promise<Exch
         client_id: CLIENT_ID,
         grant_type: 'authorization_code',
         code,
-        redirect_uri: REDIRECT_URI,
+        redirect_uri: redirectUri,
         code_verifier: codeVerifier,
         })
     const response = await axios.post(url,body,{
@@ -45,9 +52,9 @@ export const exchangeToken = async(code:string,codeVerifier:string):Promise<Exch
             'Content-Type': 'application/x-www-form-urlencoded',
         }
     })
-    return response.data
+    return response.data;
     } catch (error) {
         console.log(error)
-        throw new Error("faill")
+        throw new Error("fail")
     }
 }
