@@ -13,7 +13,7 @@ const Layout = styled('div')({
 })
 
 const Sidebar = styled('div')(({theme})=>({
-    width:'331px',
+    width:'300px',
     height:'100%',
     display:'flex',
     flexDirection:'column',

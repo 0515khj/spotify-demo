@@ -20,7 +20,7 @@ const NewReleases = () => {
                 New Released Albums
             </Typography>
             {data && data.albums.items.length > 0 ?(
-                <Grid container  rowSpacing={4} columnSpacing={1}>
+                <Grid container  rowSpacing={2} columnSpacing={2}>
                     {data.albums.items.map((album)=>(
                         <Grid size={{xs:6, sm:6, md:3, lg:2}} key={album.id}>
                             <Card 

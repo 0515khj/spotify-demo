@@ -10,7 +10,8 @@ const Card = ({image,name,artistName}:CardProps) => {
     return (
          <MuiCard
       sx={{
-         width: { xs: '100%', sm: 200, md: 210 },
+         width: '100%',
+        //  maxWidth: 220,
         padding:1.5,
         bgcolor: "transparent",
         boxShadow: "none",
