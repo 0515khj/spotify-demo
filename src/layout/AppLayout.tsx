@@ -29,7 +29,8 @@ const ContentBox =styled(Box)(({theme})=>({
     width:"100%",
     padding:"8px",
     marginBottom:'8px',
-    marginRight:'8px'
+    marginRight:'8px',
+    minHeight: 0,
 }))
 
 const NavList = styled('ul')({
@@ -73,9 +74,17 @@ const AppLayout = () => {
                     </NavList>
                 </ContentBox>
 
-                <ContentBox height="100%">
+                <ContentBox
+                    sx={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                      overflow: "hidden", 
+                    }}>
                     <LibraryHead/>
-                    <Library/>
+                    <Box sx={{ mt: 1, flex: 1, overflowY: "auto", pr: 1 }}>
+                      <Library />
+                    </Box>
                 </ContentBox>
             </Sidebar>
             <ContentBox sx={{ flex: 1, overflowY: 'auto', ml: 1 }}>
