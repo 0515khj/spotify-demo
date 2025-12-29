@@ -18,6 +18,9 @@ const Library = () => {
         }
     },[inView])
     const {data:user}=useGetCurrentUserProfile();
+
+    if (isLoading) return <Spinners />;  
+  if (error) return <div>에러가 발생했습니다.</div>;
     if(!user) return <EmptyPlaylist/>
    return (
   <div>
