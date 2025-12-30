@@ -10,18 +10,19 @@ const Playlist = ({playlists}:PlaylistProps) => {
 
     const navigate = useNavigate();
 
-    const handleClick = (id:string) =>{
+    const _handleClick = (id:string) =>{
         navigate(`/playlist/${id}`)
     }
     return (
         <div>
             {playlists.map((item)=>(
                 <PlaylistItem
+                handleClick = {_handleClick}
                 name={item.name || ""}
                 image = {(item.images && item.images[0]?.url) || null}
                 id = {item.id || ""}
                 key = {item.id}
-                artistName={"Playlist " + item.owner?.display_name} 
+                artistName={item.owner?.display_name || ""} 
                 />
             ))}
         </div>
