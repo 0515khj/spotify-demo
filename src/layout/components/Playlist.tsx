@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import PlaylistItem from "../../common/components/PlaylistItem";
 import type { SimplifiedPlaylist } from "../../models/playlist";
+import fallback from "../../../public/images/fallback.png"
 
 interface PlaylistProps {
   playlists: SimplifiedPlaylist[];
@@ -19,7 +20,7 @@ const Playlist = ({playlists}:PlaylistProps) => {
                 <PlaylistItem
                 handleClick = {_handleClick}
                 name={item.name || ""}
-                image = {(item.images && item.images[0]?.url) || null}
+                image = {(item.images && item.images[0]?.url) || fallback}
                 id = {item.id || ""}
                 key = {item.id}
                 artistName={item.owner?.display_name || ""} 
