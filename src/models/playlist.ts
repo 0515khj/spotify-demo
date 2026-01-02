@@ -45,9 +45,14 @@ export interface GetPlaylistRequest {
 
 }
 
+export interface GetPlaylistItemsRequest extends GetPlaylistRequest {
+  offset?:number,
+  limit?:number
+}
+
 export interface PlaylistTrack {
     added_at?:string | null;
-    added_by:{
+    added_by?:{
         external_urls?:ExternalUrls;
         followers?:Followers;
         href?:string;
@@ -59,9 +64,25 @@ export interface PlaylistTrack {
     track:Track | Episode;
 }
 
+export type GetPlaylistItemsResponse = ApiResponse<PlaylistTrack>
+
+export interface PlaylistTrack {
+  added_at?:string | null;
+  added_by?: {
+    external_urls? : ExternalUrls;
+    followers?:Followers;
+    href?:string;
+    id?:string;
+    type?:string;
+    uri?:string;
+  } | null;
+  is_local?:boolean;
+  track: Track | Episode;
+}
+
 export interface Track {
-  album: SimplifiedAlbum;
-  artists: Artist[];
+  album?: SimplifiedAlbum;
+  artists?: Artist[];
   available_markets?: string[];
   disc_number: number;
   duration_ms: number;
@@ -71,11 +92,12 @@ export interface Track {
   href: string;
   id: string;
   is_playable?: boolean;
-  linked_from?:{
-        href?: string;
-        id?: string;
-        uri?: string;
-      } | null;
+  linked_from?:Track;
+  // linked_from?:{
+  //       href?: string;
+  //       id?: string;
+  //       uri?: string;
+  //     } | null;
   restrictions?: Restriction | null;
   name: string;
   popularity: number;
