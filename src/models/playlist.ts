@@ -140,3 +140,11 @@ export interface Episode {
     external_urls?: ExternalUrls;
   };
 }
+
+
+export interface CreatePlaylistRequest {
+  name:string;
+  playlistPublic?:boolean;
+  collaborative?:boolean;
+  description?:string;
+}

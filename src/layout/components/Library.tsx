@@ -7,6 +7,7 @@ import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 import Spinners from "../../common/components/Spinners";
 import EmptyPlaylist from "./EmptyPlaylist";
 import Playlist from "./Playlist";
+import ErrorState from "./ErrorState";
 
 const Library = () => {
   const { ref, inView } = useInView();
@@ -33,7 +34,7 @@ const Library = () => {
 
   if (isLoading) return <Spinners />;
   if (!user) return <EmptyPlaylist />;
-  if (error) return <div>에러가 발생했습니다.</div>;
+  if (error) return <ErrorState/>;
 
   const hasPlaylists =
     data?.pages && data.pages[0].items && data.pages[0].items.length > 0;

@@ -82,12 +82,12 @@ const AppLayout = () => {
                       overflow: "hidden", 
                     }}>
                     <LibraryHead/>
-                    <Box sx={{ mt: 1, flex: 1, overflowY: "auto", pr: 1 }}>
+                    <Box className="mainScroll" sx={{ mt: 1, flex: 1, overflowY: "auto", pr: 1 }}>
                       <Library />
                     </Box>
                 </ContentBox>
             </Sidebar>
-            <ContentBox sx={{ flex: 1, overflowY: 'auto', ml: 1 }}>
+            <ContentBox className="mainScroll" sx={{ flex: 1, overflowY: 'auto', ml: 1 }}>
                 <Navbar />
                 <Outlet/>
             </ContentBox>
