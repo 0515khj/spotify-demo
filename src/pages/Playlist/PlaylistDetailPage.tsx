@@ -21,7 +21,7 @@ const PlaylistDetailPage = () => {
       hasNextPage,
       isFetchingNextPage,
       fetchNextPage,
-    } = useGetPlaylistItems({playlist_id:id ?? "",limit:PAGE_LIMIT,offset:0});
+    } = useGetPlaylistItems({playlist_id:id ?? "",limit:PAGE_LIMIT});
 
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [bottomEl, setBottomEl] = useState<HTMLDivElement | null>(null);

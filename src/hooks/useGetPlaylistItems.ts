@@ -6,7 +6,8 @@ const useGetPlaylistItems = (params:GetPlaylistItemsRequest) =>{
     return useInfiniteQuery({
         queryKey:['playlist-items',params],
         queryFn:({pageParam})=>{
-            return getPlaylistItems({offset:pageParam,...params})
+            console.log("pageParam:", pageParam);
+            return getPlaylistItems({...params,offset:pageParam})
         },
         initialPageParam:0,
         getNextPageParam:(lastPage)=>{
