@@ -5,6 +5,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import LibraryHead from "./components/LibraryHead";
 import Library from "./components/Library";
 import Navbar from "./components/Navbar";
+import { getSpotifyAuthUrl } from "../utils/auth";
+import ErrorState from "./components/ErrorState";
 
 const Layout = styled("div")({
   display: "flex",
@@ -29,14 +31,6 @@ const ContentBox = styled(Box)(({ theme }) => ({
   width: "100%",
   minHeight: 0,
 }));
-
-// const NavList = styled("ul")({
-//   listStyle: "none",
-//   padding: 0,
-//   margin: 0,
-//   display: "grid",
-//   gap: "14px",
-// });
 
 const StyledNavLink = styled(NavLink)(({ theme }) => ({
   textDecoration: "none",
@@ -97,6 +91,13 @@ const MainScrollArea = styled(Box)(() => ({
 }));
 
 const AppLayout = () => {
+    const accessToken = localStorage.getItem("access_token"); 
+    const isLoggedIn = !!accessToken;
+
+    const login = () =>{
+            getSpotifyAuthUrl();
+        }
+
   return (
     <Layout>
       <Sidebar>
@@ -125,9 +126,21 @@ const AppLayout = () => {
           }}
         >
           <LibraryHead />
+          {!isLoggedIn ? (
+            <Box sx={{mt:2}}>
+            <ErrorState
+                fullScreen={false}            
+                title="로그인 하세요"
+                description="로그인해야 플레이리스트 / 라이브러리를 사용할 수 있어요."
+                actionLabel="Log in"
+                onAction={login}
+            />
+            </Box>
+           ) : (
           <Box className="mainScroll" sx={{ mt: 1, flex: 1, overflowY: "auto", pr: 1 }}>
             <Library />
           </Box>
+        )}
         </ContentBox>
       </Sidebar>
 

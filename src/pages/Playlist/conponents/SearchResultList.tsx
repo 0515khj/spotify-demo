@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import type { Track } from '../../../models/playlist';
 import { Avatar, Box, Button, Divider, Stack, Typography } from '@mui/material';
 

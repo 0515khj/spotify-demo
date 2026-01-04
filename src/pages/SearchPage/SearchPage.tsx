@@ -14,12 +14,10 @@ const SearchPage = () => {
     return () => clearTimeout(t);
   }, [q]);
 
-  // ✅ 지금은 “노래”만 보여줄거니까 type은 track만
   const params = useMemo(
     () => ({
       q: debouncedQ,
-      type: [SEARCH_TYPE.Track], // enum이면 [SEARCH_TYPE.Track] 그대로
-      // limit은 searchApi 쪽에서 20 주면 됨 (Spotify 기본 20)
+      type: [SEARCH_TYPE.Track], 
     }),
     [debouncedQ]
   );
@@ -27,7 +25,6 @@ const SearchPage = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useSearchItemsByKeyword(params);
 
-  // ✅ pages에서 tracks.items만 싹 합치기
   const tracks: Track[] = useMemo(() => {
     return (
       data?.pages?.flatMap((page) => page?.tracks?.items ?? []) ?? []
@@ -77,7 +74,7 @@ const SearchPage = () => {
       <Box sx={{ mt: 3}}>
         {!debouncedQ && (
           <Typography sx={{ color: "rgba(255,255,255,0.55)", fontSize: 13, px: 1 }}>
-            검색어를 입력하면 결과가 여기에 표시돼.
+            검색어를 입력하면 결과가 여기에 표시
           </Typography>
         )}
 
@@ -100,7 +97,6 @@ const SearchPage = () => {
             hasNextPage={!!hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
             onAdd={(track) => {
-              // TODO: 플레이리스트에 track 추가 로직 연결
               console.log("ADD:", track.id);
             }}
           />

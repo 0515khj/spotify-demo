@@ -9,7 +9,7 @@ type ErrorStateProps = {
 };
 
 export default function ErrorState({
-  title = "다시 로그인 하세요",
+  title = "로그인 하세요",
   description,
   actionLabel = "Log in",
   onAction,
@@ -19,11 +19,10 @@ export default function ErrorState({
     <Box
       sx={{
         width: "100%",
-        height: fullScreen ? "100vh" : 320,
+        height: fullScreen ? "100vh" : 500,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        bgcolor: "rgba(0,0,0,0.65)",
         borderRadius: fullScreen ? 0 : 2,
       }}
     >
@@ -36,7 +35,6 @@ export default function ErrorState({
           justifyContent: "center",
           alignItems: "center",
           gap: 2,
-          bgcolor: "rgba(0,0,0,0.55)",
           borderRadius: 2,
         }}
       >
