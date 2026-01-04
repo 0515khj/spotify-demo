@@ -4,7 +4,8 @@ import useClientCredentialToken from "./useClientCredentialToken";
 import type { GetNEwReleasesResponse } from "../models/album";
 
 const useGetNewReleases = () =>{
-    const clientCredentialToken = useClientCredentialToken()
+    const clientCredentialToken = useClientCredentialToken();
+    
     return useQuery<GetNEwReleasesResponse>({
         queryKey:["new-releases"],
         queryFn:async()=>{

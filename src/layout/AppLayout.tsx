@@ -1,98 +1,177 @@
-import { Box, styled, Typography } from '@mui/material';
-import { NavLink, Outlet } from 'react-router';
-import HomeIcon from '@mui/icons-material/Home';
-import SearchIcon from '@mui/icons-material/Search';
-import LibraryHead from './components/LibraryHead';
-import Library from './components/Library';
-import Navbar from './components/Navbar';
+import { Box, styled, Typography } from "@mui/material";
+import { NavLink, Outlet } from "react-router";
+import HomeIcon from "@mui/icons-material/Home";
+import SearchIcon from "@mui/icons-material/Search";
+import LibraryHead from "./components/LibraryHead";
+import Library from "./components/Library";
+import Navbar from "./components/Navbar";
 
-const Layout = styled('div')({
-    display:'flex',
-    height: '100vh',
-    padding:'8px'
-})
+const Layout = styled("div")({
+  display: "flex",
+  height: "100vh",
+  padding: "8px",
+  gap: "8px",
+});
 
-const Sidebar = styled('div')(({theme})=>({
-    width:'300px',
-    height:'100%',
-    display:'flex',
-    flexDirection:'column',
-    [theme.breakpoints.down("sm")]:{
-        display:'none'
-    },
+const Sidebar = styled("div")(({ theme }) => ({
+  width: "300px",
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+  [theme.breakpoints.down("sm")]: { display: "none" },
 }));
 
-const ContentBox =styled(Box)(({theme})=>({
-    borderRadius:'8px',
-    backgroundColor:theme.palette.background.paper,
-    color:theme.palette.text.primary,
-    width:"100%",
-    padding:"8px",
-    marginBottom:'8px',
-    marginRight:'8px',
-    minHeight: 0,
-}))
+const ContentBox = styled(Box)(({ theme }) => ({
+  borderRadius: "8px",
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.text.primary,
+  width: "100%",
+  minHeight: 0,
+}));
 
-const NavList = styled('ul')({
-    listStyle:'none',
-    padding:0,
-    margin:0
-})
+// const NavList = styled("ul")({
+//   listStyle: "none",
+//   padding: 0,
+//   margin: 0,
+//   display: "grid",
+//   gap: "14px",
+// });
 
-const StyledNavLink = styled(NavLink)(({theme})=>({
-    textDecoration:'none',
-    display:'flex',
-    alignItems:'center',
-    gap:'20px',
-    color:theme.palette.text.secondary,
-    "&:hover":{
-        color:theme.palette.text.primary,
-    },
-    "&.active":{
-        color:theme.palette.text.primary,
-    },
+const StyledNavLink = styled(NavLink)(({ theme }) => ({
+  textDecoration: "none",
+  display: "flex",
+  alignItems: "center",
+  gap: "14px",
+  color: theme.palette.text.secondary,
+  "&:hover": { color: theme.palette.text.primary },
+  "&.active": { color: theme.palette.text.primary },
+}));
+
+
+const TopHeader = styled(Box)(({ theme }) => ({
+  zIndex: 50,
+  height: 100,
+  overflow:"hidden",
+  padding: "10px 14px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  gap: 10,
+  background: theme.palette.background.paper,
+  backdropFilter: "blur(10px)",
+}));
+
+const HeaderLeft = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
+  gap: 10,
+}));
+
+const HeaderRight = styled(Box)(() => ({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+  marginLeft: "auto", 
+}));
+
+const HeaderLink = styled(NavLink)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+  textDecoration: "none",
+  color: theme.palette.text.secondary,
+  padding: "8px 10px",
+  borderRadius: 10,
+  "&:hover": {
+    background: "rgba(255,255,255,0.06)",
+    color: theme.palette.text.primary,
+  },
+  "&.active": { color: theme.palette.text.primary },
+}));
+
+const MainScrollArea = styled(Box)(() => ({
+  flex: 1,
+  minHeight: 0, 
+  overflowY: "auto",
 }));
 
 const AppLayout = () => {
-    return (
-        <Layout>
-            <Sidebar>
-                <ContentBox>
-                    <NavList>
-                        <StyledNavLink to="/">
-                            <HomeIcon/>
-                            <Typography variant="h2" fontWeight={700}>
-                                Home
-                            </Typography>
-                        </StyledNavLink>
-                        <StyledNavLink to="/search">
-                            <SearchIcon/>
-                            <Typography variant="h2" fontWeight={700}>
-                                Search
-                            </Typography>
-                        </StyledNavLink>
-                    </NavList>
-                </ContentBox>
+  return (
+    <Layout>
+      <Sidebar>
+        <ContentBox sx={{ p: 2 }}>
+            <StyledNavLink to="/">
+            <Box
+              component="img"
+              src="/images/spo1.png"
+              alt="Spotify"
+              sx={{
+                width: 300,
+                height: 60,
+                objectFit: "contain",
+              }}
+            />
+            </StyledNavLink>
+        </ContentBox>
 
-                <ContentBox
-                    sx={{
-                      flex: 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      overflow: "hidden", 
-                    }}>
-                    <LibraryHead/>
-                    <Box className="mainScroll" sx={{ mt: 1, flex: 1, overflowY: "auto", pr: 1 }}>
-                      <Library />
-                    </Box>
-                </ContentBox>
-            </Sidebar>
-            <ContentBox className="mainScroll" sx={{ flex: 1, overflowY: 'auto', ml: 1 }}>
-                <Navbar />
-                <Outlet/>
-            </ContentBox>
-        </Layout>
-    );
+        <ContentBox
+          sx={{
+            flex: 1,
+            p: 2,
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+          }}
+        >
+          <LibraryHead />
+          <Box className="mainScroll" sx={{ mt: 1, flex: 1, overflowY: "auto", pr: 1 }}>
+            <Library />
+          </Box>
+        </ContentBox>
+      </Sidebar>
+
+      <ContentBox
+        sx={{
+          flex: 1,
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          minHeight: 0,
+        }}
+      >
+        
+          <TopHeader>
+            <HeaderLeft>
+              <HeaderLink to="/">
+                <HomeIcon fontSize="small" />
+                <Typography sx={{ fontSize: 14, fontWeight: 700 }}>
+                  Home
+                </Typography>
+              </HeaderLink>
+
+              <HeaderLink to="/search">
+                <SearchIcon fontSize="small" />
+                <Typography sx={{ fontSize: 14, fontWeight: 700 }}>
+                  Search
+                </Typography>
+              </HeaderLink>
+            </HeaderLeft>
+
+            <HeaderRight>
+                <Navbar/>
+            </HeaderRight>
+          </TopHeader>
+
+          <MainScrollArea className="mainScroll">
+            <Box sx={{ px: 2, pt: 0, pb: 3 }}>
+              <Outlet />
+            </Box>
+          </MainScrollArea>
+      </ContentBox>
+
+    </Layout>
+  );
 };
 
 export default AppLayout;

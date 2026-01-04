@@ -32,8 +32,8 @@ const Navbar = () => {
             <Box 
               sx={{
                 position: "absolute",
-                top: "70px",
-                right: "35px",
+                top: "55px",
+                right: "50px",
                 backgroundColor: "#222",
                 color: "#fff",
                 borderRadius: "8px",

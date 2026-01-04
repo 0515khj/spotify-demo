@@ -63,11 +63,11 @@ const PlaylistDetailPage = () => {
          ref={scrollRef}
          className="mainScroll"
          sx={{
-          flex:1,
-          minHeight:0,
+          // flex:1,
+          // minHeight:0,
           padding: 4,
           height: "100%",
-          overflow: "auto",
+          // overflow: "auto",
           display: "flex",
           flexDirection: "column",
           gap: 3,
