@@ -14,11 +14,10 @@ const PlaylistItem = ({ id, image, name, artistName, handleClick }: PlaylistItem
      const navigate = useNavigate();
 
   const onClick = () => {
+    localStorage.setItem("last_playlist_id", id);
     if (handleClick) {
-      // 부모에서 props로 넘어온 함수가 있으면 그거 호출
       handleClick(id);
     } else {
-      // 없으면 기본 동작: 플레이리스트 상세로 이동
       navigate(`/playlist/${id}`);
     }
   };
@@ -36,7 +35,7 @@ const PlaylistItem = ({ id, image, name, artistName, handleClick }: PlaylistItem
         borderRadius: 1,
         cursor: "pointer",
         "&:hover": {
-          backgroundColor: "rgba(255,255,255,0.08)",
+          backgroundColor: "rgba(194, 143, 143, 0.08)",
         },
       }}
     >

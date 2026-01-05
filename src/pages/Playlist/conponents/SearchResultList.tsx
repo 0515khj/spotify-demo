@@ -10,13 +10,13 @@ interface SearchResultListProps {
     onAdd?: (track: Track) => void; 
 }
 
-const SearchResultList = ({
-    list,
-    hasNextPage = false,
-    fetchNextPage,
-    isFetchingNextPage = false,
-    onAdd,
-}:SearchResultListProps) => {
+    const SearchResultList = ({
+        list,
+        hasNextPage = false,
+        fetchNextPage,
+        isFetchingNextPage = false,
+        onAdd,
+    }:SearchResultListProps) => {
 
      const sentinelRef = useRef<HTMLDivElement | null>(null);
 
@@ -140,7 +140,6 @@ const SearchResultList = ({
                 {albumName}
               </Typography>
 
-              {/* 오른쪽: Add */}
               <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button
                   size="small"
@@ -164,10 +163,8 @@ const SearchResultList = ({
           );
         })}
 
-        {/* 바닥 센티넬 */}
         <Box ref={sentinelRef} sx={{ height: 1 }} />
 
-        {/* 로딩 표시 */}
         {isFetchingNextPage && (
           <Typography sx={{ color: "rgba(255,255,255,0.65)", fontSize: 12, py: 1, px: 1 }}>
             loading...

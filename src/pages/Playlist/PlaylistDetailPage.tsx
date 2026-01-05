@@ -28,10 +28,12 @@ const PlaylistDetailPage = () => {
   
 
     useEffect(() => {
+      if (id) localStorage.setItem("last_playlist_id", id);
+    }, [id]);
+    
+    useEffect(() => {
       const root = scrollRef.current;
       const target = bottomEl;
-
-      console.log("[IO] root?", !!root, "target?", !!target);
 
       if (!root || !target) return;
 
@@ -54,8 +56,11 @@ const PlaylistDetailPage = () => {
     
     const imageUrl = playlist.images?.[0]?.url;
     const ownerName = playlist.owner?.display_name ?? "알 수 없음";
+    
     const items: PlaylistTrack[] = playlist.tracks?.items ?? [];
+    
     const totalTracks = items.length;
+
 
     
     return (
@@ -115,7 +120,7 @@ const PlaylistDetailPage = () => {
       </Box>
 
       {playlist?.tracks?.total === 0 ? (
-        <EmptyPlaylistWithSearch/>
+        <EmptyPlaylistWithSearch playlistId={id ?? ""}/>
       ):(
         <>
         <Table >

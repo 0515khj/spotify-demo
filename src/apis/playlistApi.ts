@@ -54,3 +54,18 @@ try {
     throw new Error('fail to create playlist')
 }
 }
+
+export const addPlaylistTracks = async (
+  playlist_id: string,
+  uris: string[]
+): Promise<{ snapshot_id: string }> => {
+  try {
+    const response = await api.post(`/playlists/${playlist_id}/tracks`, {
+      uris,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("fail to add tracks to playlist");
+  }
+};

@@ -1,5 +1,6 @@
 import { Box, styled, Typography } from "@mui/material";
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom"; 
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import LibraryHead from "./components/LibraryHead";
@@ -90,10 +91,41 @@ const MainScrollArea = styled(Box)(() => ({
   overflowY: "auto",
 }));
 
+const HeaderButton = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+  color: theme.palette.text.secondary,
+  padding: "8px 10px",
+  borderRadius: 10,
+  cursor: "pointer",
+  userSelect: "none",
+  "&:hover": {
+    background: "rgba(255,255,255,0.06)",
+    color: theme.palette.text.primary,
+  },
+}));
+
 const AppLayout = () => {
     const accessToken = localStorage.getItem("access_token"); 
     const isLoggedIn = !!accessToken;
 
+    const location = useLocation();
+ const navigate = useNavigate(); // ✅ 추가
+
+  // ✅ 추가: Search 클릭 시점에 playlistId를 "다시" 계산해서 이동
+  const goSearch = () => {
+    const m = location.pathname.match(/^\/playlist\/([^/]+)/);
+    const fromPath = m?.[1] ?? "";
+    const lastPlaylistId = localStorage.getItem("last_playlist_id") ?? "";
+    const playlistIdForSearch = fromPath || lastPlaylistId;
+
+    if (playlistIdForSearch) {
+      navigate(`/search?playlistId=${playlistIdForSearch}`);
+    } else {
+      navigate("/search");
+    }
+  };
     const login = () =>{
             getSpotifyAuthUrl();
         }
@@ -163,12 +195,19 @@ const AppLayout = () => {
                 </Typography>
               </HeaderLink>
 
-              <HeaderLink to="/search">
+              {/* <HeaderLink to={searchTo}>
                 <SearchIcon fontSize="small" />
                 <Typography sx={{ fontSize: 14, fontWeight: 700 }}>
                   Search
                 </Typography>
-              </HeaderLink>
+              </HeaderLink> */}
+
+            <HeaderButton onClick={goSearch} role="button" tabIndex={0}>
+              <SearchIcon fontSize="small" />
+              <Typography sx={{ fontSize: 14, fontWeight: 700 }}>Search</Typography>
+            </HeaderButton>
+
+
             </HeaderLeft>
 
             <HeaderRight>

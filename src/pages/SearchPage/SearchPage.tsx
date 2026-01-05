@@ -4,10 +4,30 @@ import { useEffect, useMemo, useState } from "react";
 import type { Track } from "../../models/playlist";
 import useSearchItemsByKeyword from "../../hooks/useSearchItemsByKeyword";
 import { SEARCH_TYPE } from "../../models/search";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addPlaylistTracks } from "../../apis/playlistApi";
 
 const SearchPage = () => {
    const [q, setQ] = useState("");
   const [debouncedQ, setDebouncedQ] = useState("");
+
+  const [sp] = useSearchParams();
+  const playlistId =  sp.get("playlistId") ??
+  localStorage.getItem("last_playlist_id") ??
+  "";
+  
+
+  const navigate = useNavigate();
+
+const playlistIdFromQuery = sp.get("playlistId") ?? "";
+const lastPlaylistId = localStorage.getItem("last_playlist_id") ?? "";
+
+useEffect(() => {
+  if (!playlistIdFromQuery && lastPlaylistId) {
+    navigate(`/search?playlistId=${lastPlaylistId}`, { replace: true });
+  }
+}, [playlistIdFromQuery, lastPlaylistId, navigate]);
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQ(q.trim()), 350);
@@ -30,6 +50,32 @@ const SearchPage = () => {
       data?.pages?.flatMap((page) => page?.tracks?.items ?? []) ?? []
     );
   }, [data]);
+
+  const qc = useQueryClient();
+
+  const addMutation = useMutation({
+    mutationFn: (trackUri: string) => addPlaylistTracks(playlistId, [trackUri]),
+    onSuccess: async () => {
+      // ✅ (추가) 추가 후 화면/사이드바 갱신
+      await Promise.all([
+        qc.invalidateQueries({ queryKey: ["playlist-items", playlistId] }),
+        qc.invalidateQueries({ queryKey: ["playlist-detail", playlistId] }),
+        qc.invalidateQueries({ queryKey: ["current-user-playlists"] }),
+      ]);
+    },
+  });
+
+  const handleAdd = (track: Track) => {
+    if (!playlistId) {
+      // 여기서 토스트/알림 띄워도 됨
+      console.log("error");
+      return;
+    }
+    if (!track.uri) return;
+    addMutation.mutate(track.uri);
+  };
+
+
 
   return (
       <Box sx={{ px: 2, py: 3 }}>
@@ -96,9 +142,7 @@ const SearchPage = () => {
             fetchNextPage={fetchNextPage}
             hasNextPage={!!hasNextPage}
             isFetchingNextPage={isFetchingNextPage}
-            onAdd={(track) => {
-              console.log("ADD:", track.id);
-            }}
+            onAdd={handleAdd}
           />
         )}
       </Box>

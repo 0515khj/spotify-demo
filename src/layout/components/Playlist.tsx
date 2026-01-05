@@ -12,6 +12,7 @@ const Playlist = ({playlists}:PlaylistProps) => {
     const navigate = useNavigate();
 
     const _handleClick = (id:string) =>{
+        localStorage.setItem("last_playlist_id", id);
         navigate(`/playlist/${id}`)
     }
     return (
